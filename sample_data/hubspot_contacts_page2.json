@@ -1,0 +1,56 @@
+{
+  "total": 7,
+  "results": [
+    {
+      "id": "51005",
+      "properties": {
+        "email": "Maya.Okafor@NorthwindLogistics.com",
+        "firstname": "Maya",
+        "lastname": "Okafor",
+        "company": "Northwind Logistics Ltd",
+        "jobtitle": "Head of RevOps",
+        "lifecyclestage": "lead",
+        "hs_analytics_source": "OFFLINE",
+        "hubspot_owner_id": null,
+        "createdate": "2026-10-21T11:30:00.000Z"
+      },
+      "createdAt": "2026-10-21T11:30:00.000Z",
+      "updatedAt": "2026-10-21T11:30:02.000Z",
+      "archived": false
+    },
+    {
+      "id": "51006",
+      "properties": {
+        "email": "elena.ruiz@corvidsecurity.com",
+        "firstname": "Elena",
+        "lastname": "Ruiz",
+        "company": "Corvid Security",
+        "jobtitle": "VP Sales",
+        "lifecyclestage": "opportunity",
+        "hs_analytics_source": "DIRECT_TRAFFIC",
+        "hubspot_owner_id": "7003",
+        "createdate": "2026-10-21T15:02:12.000Z"
+      },
+      "createdAt": "2026-10-21T15:02:12.000Z",
+      "updatedAt": "2026-10-22T16:45:30.000Z",
+      "archived": false
+    },
+    {
+      "id": "51007",
+      "properties": {
+        "email": "sam.k@outlook.com",
+        "firstname": "Sam",
+        "lastname": "",
+        "company": "",
+        "jobtitle": null,
+        "lifecyclestage": "subscriber",
+        "hs_analytics_source": "EMAIL_MARKETING",
+        "hubspot_owner_id": "7999",
+        "createdate": "2026-10-22T07:55:40.000Z"
+      },
+      "createdAt": "2026-10-22T07:55:40.000Z",
+      "updatedAt": "2026-10-22T07:55:41.000Z",
+      "archived": false
+    }
+  ]
+}

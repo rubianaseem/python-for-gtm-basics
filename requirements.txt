@@ -1,0 +1,6 @@
+# Used by scripts 1 and 3 to call HubSpot and Slack over HTTP.
+requests>=2.31.0
+# Optional: loads your .env file. The scripts also run without it.
+python-dotenv>=1.0.0
+# Optional: only used when ANTHROPIC_API_KEY is set. Everything runs without it.
+anthropic>=0.40.0

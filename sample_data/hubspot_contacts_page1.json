@@ -1,0 +1,79 @@
+{
+  "total": 7,
+  "results": [
+    {
+      "id": "51001",
+      "properties": {
+        "email": "maya.okafor@northwindlogistics.com",
+        "firstname": "Maya",
+        "lastname": "Okafor",
+        "company": "Northwind Logistics",
+        "jobtitle": "Head of Revenue Operations",
+        "lifecyclestage": "marketingqualifiedlead",
+        "hs_analytics_source": "ORGANIC_SEARCH",
+        "hubspot_owner_id": "7001",
+        "createdate": "2026-10-19T09:12:44.120Z"
+      },
+      "createdAt": "2026-10-19T09:12:44.120Z",
+      "updatedAt": "2026-10-20T14:01:10.002Z",
+      "archived": false
+    },
+    {
+      "id": "51002",
+      "properties": {
+        "email": "j.brennan@gmail.com",
+        "firstname": "Jack",
+        "lastname": "Brennan",
+        "company": null,
+        "jobtitle": "Founder",
+        "lifecyclestage": "lead",
+        "hs_analytics_source": "PAID_SOCIAL",
+        "hubspot_owner_id": null,
+        "createdate": "2026-10-19T16:40:02.551Z"
+      },
+      "createdAt": "2026-10-19T16:40:02.551Z",
+      "updatedAt": "2026-10-19T16:40:05.900Z",
+      "archived": false
+    },
+    {
+      "id": "51003",
+      "properties": {
+        "email": "priya.shah@brightpathhealth.co.uk",
+        "firstname": "Priya",
+        "lastname": "Shah",
+        "company": "BrightPath Health",
+        "jobtitle": "Marketing Operations Manager",
+        "lifecyclestage": "marketingqualifiedlead",
+        "hs_analytics_source": "PAID_SEARCH",
+        "hubspot_owner_id": "7002",
+        "createdate": "2026-10-20T08:05:31.000Z"
+      },
+      "createdAt": "2026-10-20T08:05:31.000Z",
+      "updatedAt": "2026-10-21T10:22:48.311Z",
+      "archived": false
+    },
+    {
+      "id": "51004",
+      "properties": {
+        "email": "tom@harbourcapital.io",
+        "firstname": "Tom",
+        "lastname": "Lindqvist",
+        "company": "Harbour Capital",
+        "jobtitle": "",
+        "lifecyclestage": "salesqualifiedlead",
+        "hs_analytics_source": "REFERRALS",
+        "hubspot_owner_id": "7001",
+        "createdate": "2026-10-20T13:47:19.774Z"
+      },
+      "createdAt": "2026-10-20T13:47:19.774Z",
+      "updatedAt": "2026-10-22T09:15:00.000Z",
+      "archived": false
+    }
+  ],
+  "paging": {
+    "next": {
+      "after": "4",
+      "link": "https://api.hubapi.com/crm/v3/objects/contacts/search?after=4"
+    }
+  }
+}
