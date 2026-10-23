@@ -103,11 +103,11 @@ Needs attention
 
 The sample people and companies are made up.
 
-## 💰 Cost note
+## Cost note
 
 With no keys, it costs nothing. HubSpot private apps and their API calls are available on HubSpot plans within the API rate limits, and a weekly pull of a few hundred contacts is a handful of calls. Slack incoming webhooks are free. With an Anthropic key, script 3 makes one short Claude call per run for the headline, so the cost is tiny; check current prices on [Anthropic's pricing page](https://www.anthropic.com/pricing).
 
-## 🔄 Swap the stack
+## Swap the stack
 
 | This repo uses | Swap for | What changes |
 |---|---|---|
@@ -119,7 +119,7 @@ With no keys, it costs nothing. HubSpot private apps and their API calls are ava
 | Claude headline | Any LLM or none | Swap `claude_headline()`; the template already covers "none" |
 | Run by hand | n8n, cron, GitHub Actions | Schedule `python run_all.py` weekly; keep the keys in the scheduler's secrets, not in the repo |
 
-## 🛠 Customise for your stack
+## Customise for your stack
 
 - **Different properties:** add them to `PROPERTIES` in script 1 and to `flatten()` in script 2 (e.g. `hs_lead_status`, `country`, or one of your custom properties)
 - **Your own flags:** add a line in `add_flags()`, such as "MQL with no owner" or "country missing for EMEA routing"
@@ -128,7 +128,7 @@ With no keys, it costs nothing. HubSpot private apps and their API calls are ava
 - **EU portal links:** set `HUBSPOT_APP_DOMAIN=app-eu1.hubspot.com` and `HUBSPOT_PORTAL_ID` so the Slack links open the right record
 - **Other objects:** change `contacts` in `SEARCH_URL` to `companies` or `deals`, and the property names to match
 
-## 🧭 How this runs today (and what production would add)
+## How this runs today (and what production would add)
 
 **Today:** you run three scripts by hand in a terminal. Script 1 reads from HubSpot (or sample files), script 2 writes a CSV and a summary on your laptop, and script 3 prints or posts one Slack message. It never writes to HubSpot. Keys live in a local `.env` file that Git ignores. I've tested it end to end on the sample data with no keys, and tested the retry, pagination and Slack paths against mocked HTTP responses; I haven't pointed it at a large live portal.
 

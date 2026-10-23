@@ -1,4 +1,4 @@
-# 🐍 Python for GTM: Basics
+# Python for GTM: Basics
 
 **Three small Python scripts that do the three things every GTM engineer does all week: pull records from HubSpot's API, reshape the JSON into something useful, and post the result to Slack.**
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 🧠 The pain point
+## The pain point
 
 This one comes from my own skills roadmap rather than a broken process, but it's the same gap I see RevOps people talk about. You can do a lot in HubSpot without code, and the moment you want data "out and in" between tools, the docs assume you already know how APIs work.
 
@@ -15,7 +15,7 @@ This one comes from my own skills roadmap rather than a broken process, but it's
 
 ---
 
-## ✨ What it does
+## What it does
 
 - **Script 1, call an API:** searches HubSpot for contacts created in the last 7 days, follows every page of results, and retries politely on rate limits
 - **Script 2, transform JSON:** flattens HubSpot's nested properties into `new_leads.csv`, swaps internal values for readable labels, and joins each contact to an owner list
@@ -26,7 +26,7 @@ This one comes from my own skills roadmap rather than a broken process, but it's
 
 ---
 
-## 🗺 Where each step runs
+## Where each step runs
 
 1. **GitHub** holds the code. Clone it or click **Code → Download ZIP**.
 2. **Terminal** is where you run it: `python run_all.py`, or the three scripts one by one.
@@ -36,7 +36,7 @@ This one comes from my own skills roadmap rather than a broken process, but it's
 
 ---
 
-## 🚀 Quick start
+## Quick start
 
 ```bash
 git clone https://github.com/rubianaseem/python-for-gtm-basics.git
@@ -50,7 +50,7 @@ Everything is written to `output/`, which Git ignores so contact data never gets
 
 ---
 
-## 📋 Example output
+## Example output
 
 ```text
 === 01_pull_hubspot_contacts.py ===
@@ -71,7 +71,7 @@ The sample people and companies are made up. The full output is in [docs/DETAILS
 
 ---
 
-## 📚 More
+## More
 
 - [SETUP.md](SETUP.md): keys, your real owner list, scheduling, extending it with AI coding tools, troubleshooting
 - [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md): walk through the three scripts line by line
