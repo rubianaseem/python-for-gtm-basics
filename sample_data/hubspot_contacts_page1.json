@@ -1,5 +1,5 @@
 {
-  "total": 7,
+  "total": 12,
   "results": [
     {
       "id": "51001",
@@ -12,10 +12,10 @@
         "lifecyclestage": "marketingqualifiedlead",
         "hs_analytics_source": "ORGANIC_SEARCH",
         "hubspot_owner_id": "7001",
-        "createdate": "2026-10-19T09:12:44.120Z"
+        "createdate": "2026-10-19T09:12:44.120Z",
+        "country": "United Kingdom",
+        "phone": "+44 7700 900123"
       },
-      "createdAt": "2026-10-19T09:12:44.120Z",
-      "updatedAt": "2026-10-20T14:01:10.002Z",
       "archived": false
     },
     {
@@ -29,10 +29,10 @@
         "lifecyclestage": "lead",
         "hs_analytics_source": "PAID_SOCIAL",
         "hubspot_owner_id": null,
-        "createdate": "2026-10-19T16:40:02.551Z"
+        "createdate": "2026-10-19T16:40:02.551Z",
+        "country": "Ireland",
+        "phone": ""
       },
-      "createdAt": "2026-10-19T16:40:02.551Z",
-      "updatedAt": "2026-10-19T16:40:05.900Z",
       "archived": false
     },
     {
@@ -46,10 +46,10 @@
         "lifecyclestage": "marketingqualifiedlead",
         "hs_analytics_source": "PAID_SEARCH",
         "hubspot_owner_id": "7002",
-        "createdate": "2026-10-20T08:05:31.000Z"
+        "createdate": "2026-10-20T08:05:31.000Z",
+        "country": "United Kingdom",
+        "phone": "+44 20 7946 0958"
       },
-      "createdAt": "2026-10-20T08:05:31.000Z",
-      "updatedAt": "2026-10-21T10:22:48.311Z",
       "archived": false
     },
     {
@@ -63,17 +63,46 @@
         "lifecyclestage": "salesqualifiedlead",
         "hs_analytics_source": "REFERRALS",
         "hubspot_owner_id": "7001",
-        "createdate": "2026-10-20T13:47:19.774Z"
+        "createdate": "2026-10-20T13:47:19.774Z",
+        "country": "Sweden",
+        "phone": "+46 70 123 45 67"
       },
-      "createdAt": "2026-10-20T13:47:19.774Z",
-      "updatedAt": "2026-10-22T09:15:00.000Z",
+      "archived": false
+    },
+    {
+      "id": "51005",
+      "properties": {
+        "email": "MAYA.OKAFOR@NorthwindLogistics.com",
+        "firstname": "MAYA",
+        "lastname": "OKAFOR",
+        "company": "Northwind Logistics Ltd",
+        "jobtitle": "RevOps",
+        "lifecyclestage": "lead",
+        "hs_analytics_source": "OFFLINE",
+        "hubspot_owner_id": "7004",
+        "createdate": "2026-10-21T11:00:00.000Z",
+        "country": "United Kingdom",
+        "phone": "07700900123"
+      },
+      "archived": false
+    },
+    {
+      "id": "51006",
+      "properties": {
+        "email": "spam.bot.xyz123@mailinator.com",
+        "firstname": "asdf",
+        "lastname": "qwer",
+        "company": "SEO Guaranteed Leads",
+        "jobtitle": "Growth Hacker",
+        "lifecyclestage": "subscriber",
+        "hs_analytics_source": "OTHER_CAMPAIGNS",
+        "hubspot_owner_id": "",
+        "createdate": "2026-10-21T18:22:01.000Z",
+        "country": "United States",
+        "phone": "1234567890"
+      },
       "archived": false
     }
   ],
-  "paging": {
-    "next": {
-      "after": "4",
-      "link": "https://api.hubapi.com/crm/v3/objects/contacts/search?after=4"
-    }
-  }
+  "paging": { "next": { "after": "6" } }
 }

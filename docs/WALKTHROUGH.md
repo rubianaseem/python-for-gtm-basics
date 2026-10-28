@@ -1,76 +1,29 @@
-# Walk through it line by line: Python for GTM: Basics
+# Walkthrough: judgment in a GTM Python pipeline
 
-The code explained step by step, so you can learn it rather than just run it. Back to the [README](../README.md).
+## The shape
 
-The bits worth understanding, in the order they run.
-
-### Script 1: `01_pull_hubspot_contacts.py`
-
-```python
-since_ms = int(since.timestamp() * 1000)
-body = {"filterGroups": [{"filters": [{"propertyName": "createdate", "operator": "GTE", "value": str(since_ms)}]}], ...}
+```text
+01 pull (paginate + retry) -> 02 transform (join + flags) -> 04 score/route -> 03 Slack digest
 ```
-HubSpot's search API takes a JSON body, not URL parameters. Filters inside one `filterGroup` are ANDed; separate groups are ORed. Dates are compared as milliseconds since 1970, which is why the date gets multiplied by 1000.
 
-```python
-resp = requests.post(url, headers=headers, json=body, timeout=30)
-```
-`headers` carries `Authorization: Bearer <token>`. `json=body` turns the Python dict into JSON for you. `timeout=30` means a hung connection fails after 30 seconds instead of waiting forever.
+`pipeline.py` / `run_all.py` run that order. Each numbered file stays small so you can read it.
 
-```python
-if resp.status_code in (429, 500, 502, 503, 504) and attempt < attempts:
-    wait = int(resp.headers.get("Retry-After", 2 ** attempt))
-```
-`429` is HubSpot saying "too many requests". The polite thing is to wait (as long as `Retry-After` says, or 2, 4, 8 seconds) and try again, rather than crash or hammer it.
+## Why retries live in the pull step
 
-```python
-after = data.get("paging", {}).get("next", {}).get("after")
-if not after:
-    return contacts
-```
-The API gives you at most 100 records per call. If there are more, the response includes `paging.next.after`, and you send that back as `"after"` to get the next page. No `after` means you're on the last page. Chaining `.get(..., {})` means a missing key gives you `None` instead of an error.
+HubSpot returns `429` under burst load and paginates with `paging.next.after`. If you stop after page one, every downstream score is wrong and you will not notice. Script 01 retries politely and follows cursors; the mock pages in `sample_data/` show the same shape the live API returns.
 
-### Script 2: `02_transform_contacts.py`
+## Why flags beat silent cleans
 
-```python
-def clean(value) -> str:
-    return (value or "").strip()
-```
-HubSpot sends an empty property as `null` (Python `None`) or as `""`. `value or ""` turns `None` into `""`, so every check after this only has one kind of "missing" to handle.
+Script 02 does not "fix" disposable emails or invent owners. It flags them. Free-email founders can still be real; disposable domains and invalid addresses should not enter an SDR sequence. Duplicate emails (case variants in the sample) need a human merge decision.
 
-```python
-return {row["owner_id"]: row for row in csv.DictReader(f)}
-```
-A dictionary comprehension: it reads the owner CSV and builds `{"7001": {...Sam Patel...}, ...}`. Looking an owner up by ID is then instant, the same idea as a VLOOKUP.
+## Why a review queue exists
 
-```python
-seen = Counter(r["email"] for r in rows if r["email"])
-...
-if seen[r["email"]] > 1:
-    flags.append("duplicate email")
-```
-`Counter` counts how many times each email appears. Emails were lower-cased in `flatten`, so `Maya.Okafor@NorthwindLogistics.com` and `maya.okafor@northwindlogistics.com` count as the same person.
+Script 04 scores ICP fit and routes rows. Quarantine / review rows go to `output/review_queue.csv`. Only non-quarantine routes land in `crm_ready_import.csv`. That split is the whole point: automation proposes, humans accept, CRM stays trustworthy.
 
-```python
-writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-writer.writerows(rows)
-```
-Each row is a dict, so `DictWriter` uses the keys as column headers. That's the whole JSON-to-CSV step.
+## Routing rules you should edit
 
-### Script 3: `03_post_slack_digest.py`
+`sample_data/routing_rules.json` holds ICP countries, title keywords, score weights, and thresholds. Change those before you trust scores on your own data.
 
-```python
-headline = claude_headline(s)
-headline = headline or template_headline(s)
-```
-Try Claude first. `claude_headline` returns `None` if there's no key or the call fails, and `or` falls back to the template. The prompt only passes the counts and tells Claude to invent nothing.
+## Slack is last on purpose
 
-```python
-{"type": "section", "text": {"type": "mrkdwn", "text": headline}}
-```
-Slack messages are built from "blocks". `mrkdwn` is Slack's own Markdown (`*bold*`, `<url|label>` for links). The top-level `"text"` is the fallback shown in notifications.
-
-```python
-if resp.status_code != 200 or resp.text.strip() != "ok":
-```
-A Slack incoming webhook replies with the plain text `ok` when it worked. Anything else is an error message worth printing.
+The digest reads both `lead_summary.json` and `routing_summary.json` so the channel sees volume *and* route mix. Dry-run without a webhook so you can paste the payload into Slack's Block Kit Builder.

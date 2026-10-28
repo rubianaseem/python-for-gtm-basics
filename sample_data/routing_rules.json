@@ -1,0 +1,23 @@
+{
+  "icp_countries": ["United Kingdom", "Ireland", "Germany", "Netherlands", "Sweden", "Portugal"],
+  "icp_titles_keywords": ["revops", "revenue", "marketing ops", "operations", "vp sales", "head of", "director", "founder", "lab manager"],
+  "disposable_domains": ["mailinator.com", "yopmail.com", "guerrillamail.com", "tempmail.com"],
+  "enterprise_owner_team": "Enterprise AE",
+  "midmarket_owner_team": "Mid-market AE",
+  "sdr_team": "SDR",
+  "score_weights": {
+    "business_email": 15,
+    "icp_country": 15,
+    "icp_title": 20,
+    "has_company": 10,
+    "has_phone": 5,
+    "mql_or_later": 20,
+    "paid_or_referral_source": 10,
+    "has_owner": 5
+  },
+  "route_thresholds": {
+    "ae_review": 60,
+    "sdr_sequence": 35,
+    "nurture": 20
+  }
+}

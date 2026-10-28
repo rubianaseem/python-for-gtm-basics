@@ -29,6 +29,7 @@ SEARCH_URL = "https://api.hubapi.com/crm/v3/objects/contacts/search"
 PROPERTIES = [
     "email", "firstname", "lastname", "company", "jobtitle",
     "lifecyclestage", "hs_analytics_source", "hubspot_owner_id", "createdate",
+    "country", "phone",
 ]
 SAMPLE_PAGES = [Path("sample_data/hubspot_contacts_page1.json"),
                 Path("sample_data/hubspot_contacts_page2.json")]

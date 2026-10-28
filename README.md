@@ -1,6 +1,6 @@
-# Python for GTM: Basics
+# Python for GTM: Basics (pull -> transform -> score/route -> Slack)
 
-**Three small Python scripts that do the three things every GTM engineer does all week: pull records from HubSpot's API, reshape the JSON into something useful, and post the result to Slack.**
+**A cohesive offline-first GTM pipeline in Python: pull HubSpot contacts (with pagination and polite retries), flatten and flag messy rows, score and route leads, then post a Slack digest — with a review queue so bad data never silently hits the CRM.**
 
 > Built by Rubia Naseem, GTM Engineer (12+ yrs CRM/RevOps, HubSpot & Salesforce).
 
@@ -8,31 +8,31 @@
 
 ## The pain point
 
-This one comes from my own skills roadmap rather than a broken process, but it's the same gap I see RevOps people talk about. You can do a lot in HubSpot without code, and the moment you want data "out and in" between tools, the docs assume you already know how APIs work.
+HubSpot workflows cover a lot until you need data "out and in" with judgment: retries on 429s, owner joins, quarantine for disposable emails, and a human review queue before import.
 
-- *"I’m in RevOps and have two weeks time and want to learn the basics of working with the Hubspot API. Just getting data out and in from Gong, Zoominfo and so on…"* ([r/hubspot: Looking for an API course](https://www.reddit.com/r/hubspot/comments/1mczh0n/looking_for_an_api_course/))
-- *"you’ll be working with HTTP methods (GET, POST, PUT, DELETE) and JSON data structures."* ([HubSpot Community: what are the programming languages I should learn to develop within hubspot?](https://community.hubspot.com/t/what-are-the-programming-languages-i-should-learn-to-develop-within-hubspot/123294/5))
+- *"I'm in RevOps and have two weeks time and want to learn the basics of working with the Hubspot API. Just getting data out and in from Gong, Zoominfo and so on…"* ([r/hubspot: Looking for an API course](https://www.reddit.com/r/hubspot/comments/1mczh0n/looking_for_an_api_course/))
+- *"Struggling with HubSpot API: Extracting Large Dataset & ETL Pipeline"* — pagination, batch reads, and rate limits are the usual blockers once you leave the UI. ([r/hubspot: Struggling with HubSpot API](https://www.reddit.com/r/hubspot/comments/1bozbwx/struggling_with_hubspot_api_extracting_large/))
 
 ---
 
 ## What it does
 
-- **Script 1, call an API:** searches HubSpot for contacts created in the last 7 days, follows every page of results, and retries politely on rate limits
-- **Script 2, transform JSON:** flattens HubSpot's nested properties into `new_leads.csv`, swaps internal values for readable labels, and joins each contact to an owner list
-- **Data-quality flags:** no owner, owner not in the owner list, free email domain, missing company or job title, and duplicate emails
-- **Script 3, post to Slack:** builds a Block Kit digest and posts it with an incoming webhook, or prints a dry run if there's no webhook
-- **Runs with no keys:** sample API pages stand in for HubSpot, and Claude only writes the headline if you add an Anthropic key
-- **Read-only:** nothing here ever writes to HubSpot
+- **Pull:** HubSpot CRM search with cursor pagination and retry-on-429; sample API pages stand in when no token is set
+- **Transform:** flatten nested properties, join owners, flag invalid/disposable/free emails, missing fields, duplicate emails, bad phones, unknown owners
+- **Score and route:** fit score from ICP rules -> `ae_review` / `sdr_sequence` / `nurture` / `review` / `quarantine`
+- **Outputs:** `scored_leads.csv`, CRM-ready import CSV, review queue CSV, Slack digest (dry-run without a webhook)
+- **Optional Claude** for the Slack headline only
+- **Read-only toward HubSpot:** nothing writes to the CRM
 
 ---
 
 ## Where each step runs
 
-1. **GitHub** holds the code. Clone it or click **Code → Download ZIP**.
-2. **Terminal** is where you run it: `python run_all.py`, or the three scripts one by one.
-3. **HubSpot** is only read, using sample files until you add a private app token to `.env`.
-4. **Claude is optional.** With an Anthropic key it writes the Slack headline; without one, a template does. It all stays in the terminal.
-5. **Slack, then you.** The digest goes to your channel (or prints as a dry run), and you fix the flagged records in HubSpot by hand.
+1. **GitHub** holds the code. Clone or download the ZIP.
+2. **Terminal** runs `python pipeline.py` (or the four scripts one by one).
+3. **HubSpot** is read-only via token, or mocked from `sample_data/`.
+4. **You** clear `output/review_queue.csv` before importing `crm_ready_import.csv`.
+5. **Slack** gets the digest when `SLACK_WEBHOOK_URL` is set; otherwise a dry-run payload is printed.
 
 ---
 
@@ -43,10 +43,10 @@ git clone https://github.com/rubianaseem/python-for-gtm-basics.git
 cd python-for-gtm-basics
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python run_all.py   # sample data, no keys needed
+python pipeline.py   # sample data, no keys needed
 ```
 
-Everything is written to `output/`, which Git ignores so contact data never gets committed.
+Outputs land in `output/` (gitignored).
 
 ---
 
@@ -55,24 +55,32 @@ Everything is written to `output/`, which Git ignores so contact data never gets
 ```text
 === 01_pull_hubspot_contacts.py ===
 No HUBSPOT_TOKEN set, so using the sample API pages in sample_data/ (mock mode).
-Saved 7 contacts to output/contacts_raw.json
+Saved 12 contacts to output/contacts_raw.json
 
-=== 02_transform_contacts.py ===
-Flattened 7 contacts into output/new_leads.csv
-5 contacts need attention. Summary saved to output/lead_summary.json
-
-=== 03_post_slack_digest.py ===
-Headline (template):
-7 new contacts this week from 7 sources: Organic search 1, Paid social 1, Paid search 1, Referral 1.
-5 need a fix before routing, including 2 with no owner.
+=== 04_score_and_route.py ===
+By route: {'ae_review': ..., 'review': ..., 'quarantine': ...}
+CRM-ready rows: N -> output/crm_ready_import.csv
+Review queue:   M -> output/review_queue.csv
 ```
-
-The sample people and companies are made up. The full output is in [docs/DETAILS.md](docs/DETAILS.md#full-example-output).
 
 ---
 
+## Scripts in the pipeline
+
+| Script | Job |
+| --- | --- |
+| `01_pull_hubspot_contacts.py` | Paginated HubSpot search + 429 retries (or mock pages) |
+| `02_transform_contacts.py` | Flatten, owner join, data-quality flags |
+| `04_score_and_route.py` | Fit score, route, CRM-ready + review queue |
+| `03_post_slack_digest.py` | Block Kit digest (dry-run without webhook) |
+| `pipeline.py` / `run_all.py` | Run all four in order |
+
+## What you are supposed to learn
+
+Not "how to print Hello HubSpot." The judgment calls: follow every search page, retry on 429, flag instead of silently dropping rows, quarantine disposable emails, and keep a review queue between automation and CRM import. Edit `sample_data/routing_rules.json` before you trust scores on your own data.
+
 ## More
 
-- [SETUP.md](SETUP.md): keys, your real owner list, scheduling, extending it with AI coding tools, troubleshooting
-- [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md): walk through the three scripts line by line
-- [docs/DETAILS.md](docs/DETAILS.md): all the pain-point quotes, full feature list, output files, cost note, swap the stack, customising, and how this runs today vs production
+- [SETUP.md](SETUP.md): tokens, owner list, routing_rules.json, scheduling, troubleshooting
+- [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md): why retries, flags, and a review queue exist
+- [docs/DETAILS.md](docs/DETAILS.md): quotes, output files, cost, stack swap

@@ -141,3 +141,15 @@ With no keys, it costs nothing. HubSpot private apps and their API calls are ava
 - Respecting HubSpot's search API limits (it stops paging at 10,000 results; script 1 warns you if you hit that)
 
 See [SETUP.md](../SETUP.md) for keys, real data, and extending it.
+
+## Pipeline outputs (current)
+
+| File | Purpose |
+| --- | --- |
+| `output/contacts_raw.json` | Raw pull (mock or live) |
+| `output/new_leads.csv` | Flattened + flagged |
+| `output/scored_leads.csv` | Fit score + route |
+| `output/crm_ready_import.csv` | Rows safe to import after review |
+| `output/review_queue.csv` | Human triage |
+| `output/routing_summary.json` | Digested into Slack |
+| `output/slack_payload.json` | Dry-run Block Kit payload |

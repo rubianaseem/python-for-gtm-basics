@@ -89,3 +89,16 @@ Read every change before you run it, and run `python run_all.py` on the sample d
 | `Slack rejected the message (400): invalid_blocks` | You edited `build_payload()` and a block is malformed. Paste `output/slack_payload.json` into Slack's Block Kit Builder to see which one |
 | `Claude call failed (...)` | Bad key, no credit, or a model name that doesn't exist. The template headline is used instead |
 | Every owner shows as "Unknown owner" | Your owner CSV's `owner_id` values don't match HubSpot's owner IDs; export them again |
+
+
+## Score and route
+
+Edit `sample_data/routing_rules.json` for your ICP. Then:
+
+```bash
+python 04_score_and_route.py
+# or
+python pipeline.py
+```
+
+Review `output/review_queue.csv` before importing `output/crm_ready_import.csv`. The pipeline never writes to HubSpot.

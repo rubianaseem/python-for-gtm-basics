@@ -1,55 +1,106 @@
 {
-  "total": 7,
+  "total": 12,
   "results": [
-    {
-      "id": "51005",
-      "properties": {
-        "email": "Maya.Okafor@NorthwindLogistics.com",
-        "firstname": "Maya",
-        "lastname": "Okafor",
-        "company": "Northwind Logistics Ltd",
-        "jobtitle": "Head of RevOps",
-        "lifecyclestage": "lead",
-        "hs_analytics_source": "OFFLINE",
-        "hubspot_owner_id": null,
-        "createdate": "2026-10-21T11:30:00.000Z"
-      },
-      "createdAt": "2026-10-21T11:30:00.000Z",
-      "updatedAt": "2026-10-21T11:30:02.000Z",
-      "archived": false
-    },
-    {
-      "id": "51006",
-      "properties": {
-        "email": "elena.ruiz@corvidsecurity.com",
-        "firstname": "Elena",
-        "lastname": "Ruiz",
-        "company": "Corvid Security",
-        "jobtitle": "VP Sales",
-        "lifecyclestage": "opportunity",
-        "hs_analytics_source": "DIRECT_TRAFFIC",
-        "hubspot_owner_id": "7003",
-        "createdate": "2026-10-21T15:02:12.000Z"
-      },
-      "createdAt": "2026-10-21T15:02:12.000Z",
-      "updatedAt": "2026-10-22T16:45:30.000Z",
-      "archived": false
-    },
     {
       "id": "51007",
       "properties": {
-        "email": "sam.k@outlook.com",
-        "firstname": "Sam",
-        "lastname": "",
-        "company": "",
-        "jobtitle": null,
-        "lifecyclestage": "subscriber",
-        "hs_analytics_source": "EMAIL_MARKETING",
-        "hubspot_owner_id": "7999",
-        "createdate": "2026-10-22T07:55:40.000Z"
+        "email": "lena@orbital.health",
+        "firstname": "Lena",
+        "lastname": "Fischer",
+        "company": "Orbital Health",
+        "jobtitle": "VP Sales",
+        "lifecyclestage": "opportunity",
+        "hs_analytics_source": "ORGANIC_SEARCH",
+        "hubspot_owner_id": "7003",
+        "createdate": "2026-10-22T07:30:00.000Z",
+        "country": "Germany",
+        "phone": "+49 30 123456"
       },
-      "createdAt": "2026-10-22T07:55:40.000Z",
-      "updatedAt": "2026-10-22T07:55:41.000Z",
+      "archived": false
+    },
+    {
+      "id": "51008",
+      "properties": {
+        "email": "ops@",
+        "firstname": "",
+        "lastname": "",
+        "company": "Broken Export Co",
+        "jobtitle": null,
+        "lifecyclestage": "lead",
+        "hs_analytics_source": "DIRECT_TRAFFIC",
+        "hubspot_owner_id": "9999",
+        "createdate": "2026-10-22T09:01:00.000Z",
+        "country": "",
+        "phone": "not-a-phone"
+      },
+      "archived": false
+    },
+    {
+      "id": "51009",
+      "properties": {
+        "email": "kofi.mensah@kestrel.io",
+        "firstname": "Kofi",
+        "lastname": "Mensah",
+        "company": "Kestrel Logistics",
+        "jobtitle": "Director of Operations",
+        "lifecyclestage": "marketingqualifiedlead",
+        "hs_analytics_source": "EMAIL_MARKETING",
+        "hubspot_owner_id": "7003",
+        "createdate": "2026-10-22T12:15:00.000Z",
+        "country": "Ghana",
+        "phone": "+233 24 123 4567"
+      },
+      "archived": false
+    },
+    {
+      "id": "51010",
+      "properties": {
+        "email": "ana.costa@fernway.bio",
+        "firstname": "Ana",
+        "lastname": "Costa",
+        "company": "Fernway Bio",
+        "jobtitle": "Lab Manager",
+        "lifecyclestage": "lead",
+        "hs_analytics_source": "PAID_SEARCH",
+        "hubspot_owner_id": "7004",
+        "createdate": "2026-10-23T08:00:00.000Z",
+        "country": "Portugal",
+        "phone": "+351 912 345 678"
+      },
+      "archived": false
+    },
+    {
+      "id": "51011",
+      "properties": {
+        "email": "duplicate.me@brightpathhealth.co.uk",
+        "firstname": "Dup",
+        "lastname": "One",
+        "company": "BrightPath Health",
+        "jobtitle": "Analyst",
+        "lifecyclestage": "lead",
+        "hs_analytics_source": "REFERRALS",
+        "hubspot_owner_id": "7002",
+        "createdate": "2026-10-23T10:00:00.000Z",
+        "country": "United Kingdom",
+        "phone": ""
+      },
+      "archived": false
+    },
+    {
+      "id": "51012",
+      "properties": {
+        "email": "duplicate.me@brightpathhealth.co.uk",
+        "firstname": "Dup",
+        "lastname": "Two",
+        "company": "BrightPath",
+        "jobtitle": "Analyst",
+        "lifecyclestage": "subscriber",
+        "hs_analytics_source": "OTHER_CAMPAIGNS",
+        "hubspot_owner_id": "",
+        "createdate": "2026-10-23T10:05:00.000Z",
+        "country": "United Kingdom",
+        "phone": ""
+      },
       "archived": false
     }
   ]
